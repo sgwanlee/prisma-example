@@ -2,11 +2,22 @@ https://www.youtube.com/watch?v=RebA5J-rlwg
 
 # Initialization
 
-npx prisma init --datasource-provider postgresql
+`npx prisma init --datasource-provider postgresql`
 
 # vscode settings
 
-npx prisma format
+`npx prisma format`
+
+settings.json
+
+```json
+ "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma",
+    "editor.formatOnSave": true
+  },
+```
+
+# Migration
 
 - database는 미리 만들어져 있어야 된다.
 - `npx prisma migrate dev --name init`
@@ -22,7 +33,8 @@ Your database is now in sync with your schema.
 ✔ Generated Prisma Client (v5.8.0) to ./node_modules/.pnpm/@prisma+client@5.8.0_prisma@5.8.0/node_modules/@prisma/client in 151ms
 ```
 
-- `npx prisma generate`
+`npx prisma generate`
+
 - client를 다시 만드는 명령어.
 
 `npx prisma migrate dev --create-only`
@@ -107,7 +119,7 @@ model Category {
 
 # Save하면 자동으로 relation이 만들어진다.
 
-```
+```prisma
 
 model UserPreference {
   id           String  @id @default(uuid())
@@ -116,7 +128,7 @@ model UserPreference {
   userId       String
 }
 
-== Save
+==> Save
 
 model User {
   UserPreference UserPreference[]
@@ -132,7 +144,7 @@ model UserPreference {
 
 # One to One relation
 
-```
+```prisma
 model User {
   ...
   UserPreference UserPreference?
@@ -148,7 +160,7 @@ model UserPreference {
 
 # `updateAt`
 
-```
+```prisma
 model User {
   updatedAt DateTime @updatedAt
 }
@@ -156,7 +168,7 @@ model User {
 
 # default
 
-```
+```prisma
 
 model User {
   createdAt DateTime  @default(now())
@@ -166,7 +178,7 @@ model User {
 
 # block level unique
 
-```
+```prisma
 model User {
   @@unique([age, name])
 }
